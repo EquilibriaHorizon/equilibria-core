@@ -952,7 +952,9 @@ jobs:
             - Ubuntu 24.04 aarch64 tar.gz
             - Windows x86_64 zip
             - macOS ARM64 tar.gz
+            - macOS ARM64 .pkg (signed + notarized + stapled)
             - macOS Intel x86_64 tar.gz
+            - macOS Intel x86_64 .pkg (signed + notarized + stapled)
 
             Source commit:
             ${{ github.sha }}
