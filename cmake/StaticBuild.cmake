@@ -14,14 +14,14 @@ set(BOOST_HASH SHA256=85a33fa22621b4f314f8e85e1a5e2a9363d22e4f4992925d4bb3bc631b
     CACHE STRING "boost source hash")
 
 set(NCURSES_VERSION 6.5 CACHE STRING "ncurses version")
-set(NCURSES_MIRROR ${LOCAL_MIRROR} http://ftpmirror.gnu.org/gnu/ncurses
+set(NCURSES_MIRROR ${LOCAL_MIRROR} https://ftp.gnu.org/gnu/ncurses
     CACHE STRING "ncurses download mirror(s)")
 set(NCURSES_SOURCE ncurses-${NCURSES_VERSION}.tar.gz)
 set(NCURSES_HASH SHA512=fc5a13409d2a530a1325776dcce3a99127ddc2c03999cfeb0065d0eee2d68456274fb1c7b3cc99c1937bc657d0e7fca97016e147f93c7821b5a4a6837db821e8
     CACHE STRING "ncurses source hash")
 
 set(READLINE_VERSION 8.2 CACHE STRING "readline version")
-set(READLINE_MIRROR ${LOCAL_MIRROR} http://ftpmirror.gnu.org/gnu/readline
+set(READLINE_MIRROR ${LOCAL_MIRROR} https://ftp.gnu.org/gnu/readline
     CACHE STRING "readline download mirror(s)")
 set(READLINE_SOURCE readline-${READLINE_VERSION}.tar.gz)
 set(READLINE_HASH SHA512=0a451d459146bfdeecc9cdd94bda6a6416d3e93abd80885a40b334312f16eb890f8618a27ca26868cebbddf1224983e631b1cbc002c1a4d1cd0d65fba9fea49a
