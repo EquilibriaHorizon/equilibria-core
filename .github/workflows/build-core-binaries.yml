@@ -646,6 +646,19 @@ jobs:
           tar -czf "${PKG}.tar.gz" "$PKG"
           shasum -a 256 "${PKG}.tar.gz" > "${PKG}.tar.gz.sha256"
 
+      - name: Sign, package (.pkg) & notarize (macOS arm64)
+        env:
+          MACOS_CERT_APP_P12_BASE64: ${{ secrets.MACOS_CERT_APP_P12_BASE64 }}
+          MACOS_CERT_INSTALLER_P12_BASE64: ${{ secrets.MACOS_CERT_INSTALLER_P12_BASE64 }}
+          MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          MACOS_SIGN_APP_IDENTITY: ${{ secrets.MACOS_SIGN_APP_IDENTITY }}
+          MACOS_SIGN_INSTALLER_IDENTITY: ${{ secrets.MACOS_SIGN_INSTALLER_IDENTITY }}
+          MACOS_KEYCHAIN_PASSWORD: ${{ secrets.MACOS_KEYCHAIN_PASSWORD }}
+          MACOS_NOTARY_KEY_P8_BASE64: ${{ secrets.MACOS_NOTARY_KEY_P8_BASE64 }}
+          MACOS_NOTARY_KEY_ID: ${{ secrets.MACOS_NOTARY_KEY_ID }}
+          MACOS_NOTARY_ISSUER_ID: ${{ secrets.MACOS_NOTARY_ISSUER_ID }}
+        run: bash .github/scripts/macos-sign-and-pkg.sh arm64
+
       - name: Upload macOS ARM64 artifact
         uses: actions/upload-artifact@v4
         with:
@@ -653,6 +666,8 @@ jobs:
           path: |
             XEQM-core-*-macos-arm64-*.tar.gz
             XEQM-core-*-macos-arm64-*.tar.gz.sha256
+            XEQM-core-*-macos-arm64-*.pkg
+            XEQM-core-*-macos-arm64-*.pkg.sha256
 
 
   macos-x86_64:
@@ -868,6 +883,19 @@ jobs:
           tar -czf "${PKG}.tar.gz" "$PKG"
           shasum -a 256 "${PKG}.tar.gz" > "${PKG}.tar.gz.sha256"
 
+      - name: Sign, package (.pkg) & notarize (macOS x86_64)
+        env:
+          MACOS_CERT_APP_P12_BASE64: ${{ secrets.MACOS_CERT_APP_P12_BASE64 }}
+          MACOS_CERT_INSTALLER_P12_BASE64: ${{ secrets.MACOS_CERT_INSTALLER_P12_BASE64 }}
+          MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          MACOS_SIGN_APP_IDENTITY: ${{ secrets.MACOS_SIGN_APP_IDENTITY }}
+          MACOS_SIGN_INSTALLER_IDENTITY: ${{ secrets.MACOS_SIGN_INSTALLER_IDENTITY }}
+          MACOS_KEYCHAIN_PASSWORD: ${{ secrets.MACOS_KEYCHAIN_PASSWORD }}
+          MACOS_NOTARY_KEY_P8_BASE64: ${{ secrets.MACOS_NOTARY_KEY_P8_BASE64 }}
+          MACOS_NOTARY_KEY_ID: ${{ secrets.MACOS_NOTARY_KEY_ID }}
+          MACOS_NOTARY_ISSUER_ID: ${{ secrets.MACOS_NOTARY_ISSUER_ID }}
+        run: bash .github/scripts/macos-sign-and-pkg.sh x86_64
+
       - name: Upload macOS Intel x86_64 artifact
         uses: actions/upload-artifact@v4
         with:
@@ -875,6 +903,8 @@ jobs:
           path: |
             XEQM-core-*-macos-x86_64-*.tar.gz
             XEQM-core-*-macos-x86_64-*.tar.gz.sha256
+            XEQM-core-*-macos-x86_64-*.pkg
+            XEQM-core-*-macos-x86_64-*.pkg.sha256
 
 
   publish:
