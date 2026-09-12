@@ -656,7 +656,9 @@ jobs:
 
   macos-x86_64:
     name: Build macOS Intel x86_64 binaries
-    runs-on: macos-13
+    runs-on: [self-hosted, macOS, X64]
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 120
 
     steps:
       - name: Checkout core repo
