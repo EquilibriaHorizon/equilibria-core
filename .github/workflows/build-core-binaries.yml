@@ -553,6 +553,7 @@ jobs:
             -DBoost_INCLUDE_DIR="$BOOST_ROOT/include" \
             -DBoost_LIBRARY_DIR_RELEASE="$BOOST_ROOT/lib" \
             -DBoost_USE_STATIC_LIBS=ON \
+            -DBoost_NO_SYSTEM_PATHS=ON \
             -DCMAKE_PREFIX_PATH="$BOOST_ROOT;$ZEROMQ_ROOT;$OPENSSL_ROOT;$HIDAPI_ROOT" \
             -DWITH_SYSTEM_ZMQ=ON \
             -DBUILD_ZMQ=OFF \
@@ -774,6 +775,7 @@ jobs:
             -DBoost_INCLUDE_DIR="$BOOST_ROOT/include" \
             -DBoost_LIBRARY_DIR_RELEASE="$BOOST_ROOT/lib" \
             -DBoost_USE_STATIC_LIBS=ON \
+            -DBoost_NO_SYSTEM_PATHS=ON \
             -DCMAKE_PREFIX_PATH="$BOOST_ROOT;$ZEROMQ_ROOT;$OPENSSL_ROOT;$HIDAPI_ROOT" \
             -DWITH_SYSTEM_ZMQ=ON \
             -DBUILD_ZMQ=OFF \
