@@ -30,7 +30,7 @@
 	url = https://github.com/oxen-io/oxen-logging
 [submodule "external/oxen-mq"]
 	path = external/oxen-mq
-	url = https://github.com/oxen-io/oxen-mq.git
+	url = https://github.com/XEQMLabs/oxen-mq.git
 [submodule "external/pybind11"]
 	path = external/pybind11
 	url = https://github.com/pybind/pybind11
