@@ -62,7 +62,7 @@ inline constexpr network_config config{
         .MAX_DEACTIVATE_PER_BLOCK = 1,
         .HAVE_STORAGE_SERVER = false,
         .HAVE_SESSION_ROUTER = false,
-        .HAVE_LOKINET = true,
+        .HAVE_LOKINET = false,
         .TARGET_BLOCK_TIME = TARGET_BLOCK_TIME,
         .PULSE_STAGE_TIMEOUT = 10s,
         .PULSE_ROUND_TIMEOUT = 30s,
