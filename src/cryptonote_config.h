@@ -285,6 +285,10 @@ constexpr auto hf_prev(hf x) {
 // This is here to make sure the numeric value of the top hf enum value is correct (i.e.
 // hf21_sent == 21 numerically); bump this when adding a new hf.
 static_assert(static_cast<uint8_t>(hf_max) == 25);
+// hf enum-shift sentinels (issue #32): HF22 inserted hf22_sn_policy, shifting the ETH forks up one.
+static_assert(static_cast<uint8_t>(hf::hf20_eth_transition) == 23);
+static_assert(static_cast<uint8_t>(hf::hf21_eth) == 24);
+static_assert(static_cast<uint8_t>(hf::hf22_eth_fixup) == 25);
 
 // Constants for which hardfork activates various features:
 namespace feature {
