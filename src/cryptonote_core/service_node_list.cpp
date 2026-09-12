@@ -1335,7 +1335,7 @@ bool service_node_list::state_t::process_state_change_tx(
                         key_image_blacklist_entry& entry = key_image_blacklist.back();
                         entry.key_image = contribution.key_image;
                         auto lock_dur = (hf_version >= hf::hf22_sn_policy)
-                                              ? std::chrono::hours(14 * 24)
+                                              ? netconf.DEREGISTRATION_LOCK_DURATION_V2
                                               : netconf.DEREGISTRATION_LOCK_DURATION;
                         entry.unlock_height = block_height + netconf.BLOCKS_IN(lock_dur);
                         entry.amount = contribution.amount;

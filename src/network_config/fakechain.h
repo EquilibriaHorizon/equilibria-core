@@ -46,6 +46,7 @@ inline constexpr network_config config{
         .LIMIT_BATCH_OUTPUTS = mainnet::config.LIMIT_BATCH_OUTPUTS,
         .SERVICE_NODE_PAYABLE_AFTER_BLOCKS = testnet::config.SERVICE_NODE_PAYABLE_AFTER_BLOCKS,
         .DEREGISTRATION_LOCK_DURATION = 1h,
+        .DEREGISTRATION_LOCK_DURATION_V2 = 1h,
         .UNLOCK_DURATION = 30min,
         .HARDFORK_DEREGISTRATION_GRACE_PERIOD =
                 mainnet::config.HARDFORK_DEREGISTRATION_GRACE_PERIOD,

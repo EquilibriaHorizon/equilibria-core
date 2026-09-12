@@ -138,6 +138,8 @@ struct network_config final {
 
     // Amount of time a stake remains locked after a deregistration:
     const std::chrono::seconds DEREGISTRATION_LOCK_DURATION;
+    // HF22 forced-deregistration key-image lock (was hardcoded 14d in service_node_list.cpp)
+    const std::chrono::seconds DEREGISTRATION_LOCK_DURATION_V2;
 
     // Amount of time after initiating a SN unlock before the node expires (during which it must
     // stay registered or else will face the DEREGISTRATION_LOCK_DURATION penalty).

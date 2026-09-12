@@ -2411,7 +2411,7 @@ bool core::handle_block_found(block& b, block_verification_context& bvc) {
         // and blocks[0] is what gets relayed to peers via NOTIFY_NEW_FLUFFY_BLOCK. Signing
         // after serialization leaves blocks[0] unsigned, causing peers to reject the relay.
         // Note: get_block_hash excludes signatures so the hash is stable before/after signing.
-        if (b.major_version >= hf::hf16_pulse &&
+        if (b.major_version >= hf::hf16_pulse && !b.has_pulse() &&
                 m_fallback_miner_key != crypto::null<crypto::secret_key>) {
             crypto::public_key fallback_pub;
             crypto::secret_key_to_public_key(m_fallback_miner_key, fallback_pub);
