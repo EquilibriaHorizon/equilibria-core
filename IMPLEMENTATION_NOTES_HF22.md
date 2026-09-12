@@ -6,8 +6,12 @@ These are consensus-critical. Implement here, then **validate with the 20-operat
 binary** pass before merging into `release/hf22`.
 
 ## Design decisions (locked)
-- **Option A only.** No open/anonymous miners — survival mode. Only an *authorized* key may
-  produce fallback blocks. Do NOT add a permissionless PoW path.
+- **Option A only, but MULTIPLE authorized miners (no single point of failure).** No open/anonymous
+  miners — survival mode. Fallback blocks must be signed by one of a *set* of authorized keys held on
+  independent servers on different providers, so if one operator/provider is down another can keep the
+  chain alive. Do NOT add a permissionless PoW path.
+  - Chosen servers: **maple (OVH)** + **OCI (Oracle)** [both are live seeds] and/or **missoula (Contabo)**.
+    Pick >=2 on different providers. All are currently reachable; none retired.
 - **Option C = short.** Mainnet `PULSE_MINER_FALLBACK_ROUNDS` already set to **2** (~60s) on
   `feat` (commit b7f3213). Rationale: on a Pulse stall the authorized miner resumes blocks fast so
   uptime proofs keep flowing and SNs (esp. new / low-credit operators) are not decommissioned.
@@ -31,12 +35,20 @@ fallback block is valid during the upgrade window (>60s stall) → would split t
 **Q5b — only sign fallback (non-Pulse) blocks.** `cryptonote_core.cpp:2415` — add `&& !b.has_pulse()`
 to the signing condition so normal Pulse blocks are never fallback-signed.
 
-**Q5c — dedicated fallback keypair (not the treasury spend key via argv).**
-- Add a `FALLBACK_MINER_PUBKEY` (or per-nettype) constant to `network_config` so verifiers know the
-  authorized pubkey without a CLI arg.
-- Load the *secret* from a file path (arg is a path, not the hex key) so it isn't in the process list.
+**Q5c — dedicated fallback keypair(S) — now a SET, for redundancy (not the treasury spend key via argv).**
+- Add `FALLBACK_MINER_PUBKEYS` (a **list/set** of authorized pubkeys) to `network_config`. Verify accepts a
+  fallback block signed by **any** key in the set. This is the consensus change that enables >=2 miners.
+- Each miner server holds its **own** dedicated secret (one per server: maple, OCI, missoula), loaded from a
+  **file** (arg is a path, not hex) so no key is in the process list and a single key leak != treasury and !=
+  the other miners. Generate distinct keypairs per server; put all their pubkeys in `FALLBACK_MINER_PUBKEYS`.
 - Remove the unsynchronized static cache in `get_fallback_miner_pubkey`.
-- Keep the gov key ONLY if a consensus rule truly requires the producer == gov address (it does not).
+- **Collision handling (LOCAL, not consensus — tunable without a fork):** all authorized keys are valid to
+  produce from round `PULSE_MINER_FALLBACK_ROUNDS` (=2) onward. To avoid two miners producing the same height
+  simultaneously, give each miner a small **local** start-delay (primary maple = 0; secondary OCI = +k rounds)
+  so the secondary only mines if the primary hasn't. This delay is a per-node runtime flag (block *validity*
+  stays "valid from round 2"), so it needs NO hardfork to change. If both do race, normal fork-choice resolves
+  it in a block or two — acceptable for survival mode.
+- The `voter_index=0xFFFF` sentinel stays; verify just checks the sig against the pubkey SET instead of one key.
 
 ## Q6 — refill deduped obligations/checkpoint quorums (`service_node_list.cpp`)
 HF22 dedup currently *drops* duplicate-operator seats without replacement, shrinking
