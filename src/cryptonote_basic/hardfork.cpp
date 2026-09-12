@@ -50,7 +50,7 @@ static constexpr std::array mainnet_hard_forks = {
         // HF21: SN reward batching 20 -> 10080 blocks (7d), min payout 0.1 -> 1 XEQM.
         hard_fork{hf::hf21_weekly_batching, 0, 99000, 1784045460},  // ~2026-07-14 16:11 UTC (9:11am PT)
         // HF22: 14-day forced deregistration lock, per-operator quorum dedup, Lokinet.
-        hard_fork{hf::hf22_sn_policy, 0, 200000, 1800000000},  // TODO: finalize block + timestamp before release
+        hard_fork{hf::hf22_sn_policy, 0, 220000, 1800000000},  // TODO: finalize block + timestamp before release
 };
 
 static constexpr std::array testnet_hard_forks = {
